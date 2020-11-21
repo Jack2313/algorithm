@@ -1,10 +1,7 @@
 package com.ljiangf.Sort;
 
-import com.ljiangf.General.GeneralMethods.*;
-
 import com.ljiangf.General.GeneralMethods;
 import javafx.util.Pair;
-
 import java.util.Arrays;
 
 public class Sort {
@@ -16,13 +13,6 @@ public class Sort {
                     GeneralMethods.swap(array, i, j);
                 }
             }
-        }
-    }
-
-    public static void insertSort(int[] array, int left, int right){
-        for (int i=left; i<=right; ++i) {
-            Pair<Integer, Integer> min = GeneralMethods.argmin(array, i, right);
-            GeneralMethods.swap(array, i, min.getKey());
         }
     }
 
@@ -83,16 +73,43 @@ public class Sort {
         }
     }
 
-    public static void heapSort(int[] array, int left, int right){
+    private static void adjustHeap(int[] array,int i,int length){
+        int temp = array[i];//先取出当前元素i
+        for(int k=i*2+1;k<length;k=k*2+1){//从i结点的左子结点开始，也就是2i+1处开始
+            if(k+1<length && array[k]<array[k+1]){//如果左子结点小于右子结点，k指向右子结点
+                k++;
+            }
+            if(array[k] >temp){//如果子节点大于父节点，将子节点值赋给父节点（不用进行交换）
+                array[i] = array[k];
+                i = k;
+            }else{
+                break;
+            }
+        }
+        array[i] = temp;//将temp值放到最终的位置
+    }
 
+    public static void heapSort(int[] array){
+        for(int i=array.length/2-1;i>=0;--i){
+            //从第一个非叶子结点从下至上，从右至左调整结构
+            adjustHeap(array,i,array.length);
+        }
+
+        for(int j=array.length-1;j>=0;--j){
+            GeneralMethods.swap(array, 0, j);
+            adjustHeap(array,0,j);
+        }
     }
 
     public static void main(String[] args){
-        int[] a={5,4,3,1,2};
-        //bubbleSort(a, 0, a.length-1);
-        //insertSort(a, 0, a.length-1);
-        //mergeSort(a, 0, a.length-1);
-        quickSort(a, 0, a.length-1);
-        System.out.println(Arrays.toString(a));
+        for(int i=0;i<100;i++){
+            int[] a=GeneralMethods.gennerateArray(100,1000);
+            //bubbleSort(a, 0, a.length-1);
+            //insertSort(a, 0, a.length-1);
+            //mergeSort(a, 0, a.length-1);
+            //quickSort(a, 0, a.length-1);
+            heapSort(a);
+            System.out.println(Arrays.toString(a));
+        }
     }
 }

@@ -32,4 +32,12 @@ public class GeneralMethods {
         }
         return new Pair<Integer, Integer>(minp, min);
     }
+
+    public static int[] gennerateArray(int len,int max){
+        int[] arr=new int[len];
+        for(int i=0;i<arr.length;i++){
+            arr[i]=(int)(Math.random()*max);
+        }
+        return arr;
+    }
 }
