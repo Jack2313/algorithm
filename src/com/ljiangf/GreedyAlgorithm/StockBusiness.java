@@ -2,6 +2,7 @@ package com.ljiangf.GreedyAlgorithm;
 
 //https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii
 //tested correct on Leetcode
+
 public class StockBusiness {
     public int maxProfit(int[] prices) {
         int ans = 0;
