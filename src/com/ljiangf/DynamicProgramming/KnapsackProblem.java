@@ -1,5 +1,7 @@
 package com.ljiangf.DynamicProgramming;
 
+import java.util.Arrays;
+
 //canPartition
 //https://leetcode-cn.com/problems/partition-equal-subset-sum/
 //能否将数组均等切分
@@ -13,8 +15,6 @@ package com.ljiangf.DynamicProgramming;
 //findTargetSumWays
 //https://leetcode-cn.com/problems/target-sum/
 //给定数字，分配加减号，得到目标值共有多少方法
-
-import java.util.Arrays;
 
 //coinChange
 //https://leetcode-cn.com/problems/coin-change/
