@@ -40,4 +40,13 @@ public class GeneralMethods {
         }
         return arr;
     }
+
+    public static int searchArray(int[] nums, int p, int target){
+        for(int i=p;i<nums.length;i++){
+            if(nums[i]==target){
+                return i;
+            }
+        }
+        return -1;
+    }
 }
