@@ -4,6 +4,7 @@ import com.ljiangf.General.GeneralMethods;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 
 //maxDepth
 //https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/
@@ -28,6 +29,23 @@ import java.util.LinkedList;
 //buildTreeIteration
 //https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
 //通过迭代的思路，根据一棵树的前序遍历与中序遍历构造二叉树。
+//tested correct on Leetcode
+
+//hasPathSum
+//https://leetcode-cn.com/problems/path-sum/
+//给定一个二叉树和一个目标和，判断该树中是否存在根节点到叶子节点的路径，这条路径上所有节点值相加等于目标和。
+//tested correct on Leetcode
+
+//pathSum
+//https://leetcode-cn.com/problems/path-sum-ii/
+///给定一个二叉树和一个目标和，求该树中根节点到叶子节点的路径使所有节点值相加等于目标和。
+//tested correct on Leetcode
+
+//maxPathSum
+//https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/
+//求最大的路径和
+//tested correct on Leetcode
+
 public class DfsTree {
     private class TreeNode {
         int val;
@@ -128,6 +146,52 @@ public class DfsTree {
     }
 
     public boolean hasPathSum(TreeNode root, int sum) {
+        if (root == null) return false;
+        if (root.left == null && root.right == null) return sum == root.val;
+        return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
+    }
 
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> result = new LinkedList<>();
+        if(root==null)return result;
+        if(root.val == sum && root.left == null && root.right == null){
+            List<Integer> ans = new LinkedList<>();
+            ans.add(root.val);
+            result.add(ans);
+            return result;
+        }
+
+        result.addAll(pathSum(root.left, sum - root.val));
+        result.addAll(pathSum(root.right, sum - root.val));
+        for(List<Integer> x: result){
+            x.add(0, root.val);
+        }
+        return result;
+    }
+
+    private int maxSum = 0x80000000;
+    private int maxGain(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+
+        // 递归计算左右子节点的最大贡献值
+        // 只有在最大贡献值大于 0 时，才会选取对应子节点
+        int leftGain = Math.max(maxGain(node.left), 0);
+        int rightGain = Math.max(maxGain(node.right), 0);
+
+        // 节点的最大路径和取决于该节点的值与该节点的左右子节点的最大贡献值
+        int priceNewpath = node.val + leftGain + rightGain;
+
+        // 更新答案
+        maxSum = Math.max(maxSum, priceNewpath);
+
+        // 返回节点的最大贡献值
+        return node.val + Math.max(leftGain, rightGain);
+    }
+
+    public int maxPathSum(TreeNode root) {
+        maxGain(root);
+        return maxSum;
     }
 }
