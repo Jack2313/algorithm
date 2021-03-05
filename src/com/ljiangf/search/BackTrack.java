@@ -1,9 +1,6 @@
-package com.ljiangf.search;
+package com.ljiangf.Search;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
+import java.util.*;
 //combinationSum
 //https://leetcode-cn.com/problems/combination-sum/
 //给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
@@ -13,6 +10,11 @@ import java.util.List;
 //https://leetcode-cn.com/problems/combination-sum-ii/
 //给定一个数组candidates和一个目标数target，找出candidates中所有可以使数字和为target的组合。
 //candidates中的每个数字在每个组合中只能使用一次。
+//tested correct on Leetcode
+
+//permute
+//https://leetcode-cn.com/problems/permutations/
+//给定一个 没有重复 数字的序列，返回其所有可能的全排列。
 //tested correct on Leetcode
 public class BackTrack {
     private List<List<Integer>> combinationSum(int[] candidates, int target, int p) {
@@ -83,5 +85,33 @@ public class BackTrack {
         if(candidates.length==0)return ans;
         Arrays.sort(candidates);
         return combinationSum2(candidates, target, 0);
+    }
+
+    public void backtrack(int n, List<Integer> output, List<List<Integer>> res, int first) {
+        // 所有数都填完了
+        if (first == n) {
+            res.add(new ArrayList<>(output));
+        }
+        for (int i = first; i < n; i++) {
+            // 动态维护数组
+            Collections.swap(output, first, i);
+            // 继续递归填下一个数
+            backtrack(n, output, res, first + 1);
+            // 撤销操作
+            Collections.swap(output, first, i);
+        }
+    }
+
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+
+        List<Integer> output = new ArrayList<>();
+        for (int num : nums) {
+            output.add(num);
+        }
+
+        int n = nums.length;
+        backtrack(n, output, res, 0);
+        return res;
     }
 }
