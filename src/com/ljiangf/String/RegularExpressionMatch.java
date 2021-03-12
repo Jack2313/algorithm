@@ -40,10 +40,10 @@ public class RegularExpressionMatch {
     }
 
     public boolean isMatchGreedy(String s, String p) {
-
+        return true;
     }
 
     public boolean isMatch(String s, String p) {
-
+        return true;
     }
 }
