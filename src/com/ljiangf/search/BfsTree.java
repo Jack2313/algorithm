@@ -21,6 +21,7 @@ public class BfsTree {
 
     public List<List<Integer>> levelOrder(TreeNode root) {
         Deque<TreeNode> line = new LinkedList<>();
+
         Deque<TreeNode> newline = new LinkedList<>();
         List<List<Integer>> result = new LinkedList<>();
 

@@ -12,7 +12,7 @@ import java.util.Arrays;
 * Sort Tester. 
 * 
 * @author <Authors name> 
-* @since <pre>11ÔÂ 20, 2020</pre> 
+* @since <pre>11ï¿½ï¿½ 20, 2020</pre> 
 * @version 1.0 
 */ 
 public class SortTest { 
