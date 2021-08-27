@@ -16,11 +16,57 @@ class ListNode {
 public class MergeSortList {
 
     public ListNode sortList(ListNode head) {
-        return head;
+        ListNode current;
+        current = head;
+        int length = 0;
+        while(current != null){
+            length++;
+            current = current.next;
+        }
+        ListNode dummyHead = new ListNode(0, head);
+        for(int i=1; i<length; i=i<<1){
+            current = dummyHead.next;
+            ListNode prev = dummyHead;
+            // i是每次合并的list长度
+            while(current != null){
+                int listLength = 1;
+                ListNode head1 = current;
+                while(listLength<i && current!=null){
+                    current = current.next;
+                    listLength++;
+                }
+                if(current == null){
+                    break;
+                }
+                ListNode head2 = current.next;
+                current.next = null;
+                current = head2;
+
+                listLength = 1;
+                while(listLength<i && current!=null){
+                    current = current.next;
+                    listLength++;
+                }
+                ListNode head3 = null;
+                if(current != null){
+                    head3 = current.next;
+                    current.next = null;
+                }
+
+                prev.next = merge2Lists(head1, head2);
+                while(prev.next!=null){
+                    prev = prev.next;
+                }
+                prev.next = head3;
+                current = head3;
+            }
+
+        }
+        return dummyHead.next;
 
     }
 
-    private MergeKLists.ListNode merge2Lists(MergeKLists.ListNode l1, MergeKLists.ListNode l2){
+    private ListNode merge2Lists(ListNode l1, ListNode l2){
         if(l1==null) return l2;
         if(l2==null) return l1;
         if(l1.val<l2.val){
