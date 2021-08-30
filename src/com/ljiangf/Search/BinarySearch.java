@@ -1,4 +1,4 @@
-package com.ljiangf.search;
+package com.ljiangf.Search;
 
 //BinarySearch
 //最基本的二分查找
